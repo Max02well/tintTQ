@@ -1,4 +1,4 @@
-# TintTQ AI Backend
+# TintTQ AI Backend --> planned project(June 2026)
 
 AI-Powered Car Tint Visualization and Auto Styling Platform.
 
