@@ -1,0 +1,9 @@
+[project]
+name = "tinttqai"
+version = "0.1.0"
+description = "AI-Powered Car-Tint Visualization"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi[standard]>=0.136.3",
+]
