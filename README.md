@@ -10,15 +10,34 @@ Built with FastAPI and designed for future AI/computer vision integrations.
 
 ## Features
 
-* AI-powered tint visualization
-* Car tint recommendation engine
-* FastAPI backend architecture
+* AI-powered Vehicle tint visualization system (planned)
+* Car tint recommendation engine (planned)
 * RESTful API endpoints
 * Middleware request timing
 * CORS-enabled API
 * Modular route structure
 * Ready for AI/ML integrations
-* Scalable backend foundation
+
+* User authentication & authorization (JWT)
+* Vehicle Tint booking management system
+* Modular FastAPI architecture
+* Async database operations (SQLAlchemy 2.0)
+* Alembic database migrations
+* CORS-enabled backend
+* Scalable service-layer architecture
+
+---
+## Planned AI Capabilities
+
+* Car tint simulation from uploaded images
+* Smart tint recommendations based on:
+  - vehicle type
+  - lighting conditions
+  - legal tint limits
+* Damage detection & car condition analysis
+* Automated quotation generation
+* AI assistant for tint selection
+* Computer vision-based preview engine (OpenCV / YOLO)
 
 ---
 
@@ -30,6 +49,12 @@ Built with FastAPI and designed for future AI/computer vision integrations.
 * FastAPI
 * Uvicorn
 * Pydantic
+* SQLAlchemy 2.0 (Async)
+* Alembic (Migrations)
+* PostgreSQL
+* Psycopg2 / asyncpg
+* OAuth(planned)
+* JWT
 
 ### AI/ML (Planned)
 
@@ -52,24 +77,59 @@ Built with FastAPI and designed for future AI/computer vision integrations.
 tintTQAI/
 │
 ├── app/
-│   ├── middleware/
-│   │   └── timer.py
+│   ├── config/              # Settings, DB config etc
+│   │   ├── settings.py
+│   │   └── database.py
 │   │
-│   ├── routes/
-│      ├── products.py
-│      └── users.py
-│   
-│
-├── main.py
-├── pyproject.toml
-├── requirements.txt
-├── README.md
+│   ├── db/
+│   │   ├── session.py       # async session
+│   │   ├── base.py          # Base model registry
+│   │   └── migrations/      # Alembic setup
+│   │
+│   ├── models/              # SQLAlchemy models
+│   │   ├── user.py
+│   │   ├── vehicle.py
+│   │   ├── tint.py
+│   │   └── booking.py
+│   │
+│   ├── schemas/            # pydantic models
+│   │   ├── tint_schema.py
+│   │   ├── auth_schema.py
+│   │   └── user_schema.py
+│   │
+│   ├── repositories/            # Schemas
+│   │   ├── tint_repository.py
+│   │   ├── booking_repository.py
+│   │   └── user_repository.py
+│   │
+│   ├── services/            # Business logic layer
+│   │   ├── auth_service.py
+│   │   ├── tint_service.py
+│   │   └── user_service.py
+│   │
+│   ├── routes/              # API endpoints
+│   │   ├── auth.py
+│   │   ├── users.py
+│   │   ├── tint.py
+│   │   ├── bookings.py
+│   │   └── health.py
+│   │
+│   ├── generated/            #for AI 
+│   │
+│   ├── utils/               # Helpers (JWT, hashing, etc.)
+│   │
+│   └── middleware  
+│          # FastAPI entry point
+├── models/
+├── scripts/
+├── alembic.ini
 ├── pyproject.toml
 ├── uv.lock
+├── requirements.txt
 ├── .env
+├── .env-example
+├── README.md
 └── .gitignore
-
-```
 
 ---
 
@@ -78,20 +138,13 @@ tintTQAI/
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/tintTQAI.git
+git clone https://github.com/Max02well/tintTQAI.git
 cd tintTQAI
 ```
 
 ---
 
-## 1.Using uv sync
-
-### Method 1 -- Install dependencies at once
-
-```bash
-uv sync
-
-## 2.Create Virtual Environment
+## 1.Create Virtual Environment
 
 ### Using uv
 
@@ -120,6 +173,10 @@ source .venv/bin/activate
 ### Using uv
 
 ```bash
+uv sync
+
+or using pip
+
 uv pip install -r requirements.txt
 ```
 
@@ -215,14 +272,16 @@ allow_origins=["*"]
 
 ## Environment Variables
 
-Create a `.env` file in the project root.
+Create a `.env` file in the project root.(as per .env-example)
 
 Example:
 
 ```env
 OPENAI_API_KEY=
 DATABASE_URL=
-JWT_SECRET=
+SYNC_DB_URL=
+SECRET=
+
 ```
 
 ---
@@ -237,7 +296,7 @@ JWT_SECRET=
 
 ## Author
 
-Built by Max Gogo.
+Built by Max Gogo - Building one code at a time -
 
 ---
 
