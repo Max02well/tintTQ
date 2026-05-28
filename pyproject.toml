@@ -4,6 +4,35 @@ version = "0.1.0"
 description = "AI-Powered Car-Tint Visualization"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = [
-    "fastapi[standard]>=0.136.3",
+authors = [
+    {name = "Max Gogo", email = "onyangogogo2002@gmail.com"},
 ]
+license = {text = "MIT"}
+keywords = ["fastapi", "yolo", "car-tint", "computer-vision", "ai"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+    "alembic>=1.18.4",
+    "asyncpg>=0.31.0",
+    "fastapi[standard]>=0.136.3",
+    "itsdangerous>=2.2.0",
+    "numpy>=2.4.6",
+    "opencv-python-headless>=4.13.0.92",
+    "passlib>=1.7.4",
+    "pillow>=12.2.0",
+    "psycopg2-binary>=2.9.12",
+    "python-jose>=3.5.0",
+    "python-multipart>=0.0.29",
+    "slowapi>=0.1.9",
+    "sqlalchemy>=2.0.50",
+    "structlog>=25.5.0",
+    "ultralytics>=8.4.56",
+]
+[project.urls]
+Homepage = "https://github.com/Max02well/tinttqai"
+Repository = "https://github.com/Max02well/tinttqai.git"
+Documentation = "https://github.com/Max02well/tinttqai#readme"
