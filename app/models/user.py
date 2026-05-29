@@ -20,3 +20,4 @@ class User(Base):
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
     
     vehicles = relationship("Vehicle", back_populates="user", cascade="all, delete-orphan")
+    tints = relationship("Tint",back_populates="user", cascade="all, delete-orphan")
