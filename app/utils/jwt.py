@@ -4,7 +4,7 @@ from typing import Optional
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
-from sqlalchemy import text
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.config.settings import settings
@@ -45,7 +45,10 @@ async def get_current_user(
 
     email: str = payload.get("sub")
     if email is None:
-        raise HTTPException(status_code=401, detail="Invalid token")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid token payload"
+        )
 
     result = await db.execute(
         select(User).where(User.email == email)
@@ -58,3 +61,14 @@ async def get_current_user(
         raise HTTPException(status_code=400, detail="Inactive user")
 
     return user
+
+async def get_current_admin_user(
+    current_user: User = Depends(get_current_user)
+) -> User:
+    """Use this for admin-only routes"""
+    if not current_user.is_admin:          # Make sure your User model has `is_admin` field
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Admin privileges required"
+        )
+    return current_user

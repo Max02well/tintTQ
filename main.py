@@ -1,28 +1,3 @@
-# from fastapi import FastAPI
-# from app.routes.products import router as products_router
-# from app.routes.users import router as users_router
-# from app.middleware.timer import timing_middleware
-# # cors
-# from fastapi.middleware.cors import CORSMiddleware
-
-
-# app = FastAPI()
-
-# app.middleware("http")(timing_middleware)
-
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=["*"],
-#     allow_methods=["*"],
-#     allow_headers=["*"],
-# )
-# app.include_router(products_router)
-# app.include_router(users_router)
-
-# @app.get("/")
-# async def root():
-#     return {"message": "Welcome to the tintTQ API"}
-
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import structlog
@@ -32,7 +7,7 @@ from app.config.database import engine, Base
 from app.db.session import get_db
 # from app.middleware.logging import LoggingMiddleware
 # from app.middleware.rate_limit import RateLimitMiddleware
-from app.routes import auth, users, uploads, tint, ai, bookings, health
+from app.routes import auth, booking, users, uploads, tint, ai, health, vehicle
 
 logger = structlog.get_logger()
 
@@ -61,7 +36,9 @@ app.add_middleware(
 app.include_router(auth.router, prefix="/api/v1/auth", tags=["Auth"])
 app.include_router(users.router, prefix="/api/v1/users", tags=["Users"])
 # app.include_router(uploads.router, prefix="/api/v1/uploads", tags=["Uploads"])
-# app.include_router(tint.router, prefix="/api/v1/tint", tags=["Tint"])
+app.include_router(tint.router, prefix="/api/v1/tint", tags=["Tint"])
+app.include_router(booking.router, prefix="/api/v1/bookings", tags=["Bookings"])
+app.include_router(vehicle.router, prefix="/api/v1/vehicles", tags=["Vehicles"])
 # app.include_router(ai.router, prefix="/api/v1/ai", tags=["AI"])
 # app.include_router(bookings.router, prefix="/api/v1/bookings", tags=["Bookings"])
 

@@ -39,7 +39,7 @@ async def refresh_token(request: TokenRefreshRequest):
             detail="Invalid refresh token"
         )
     
-    # Create new access token (you can also issue new refresh token for rotation)
+    # Create new access token (issue new refresh token for rotation)
     access_token = create_access_token(data={"sub": payload["sub"]})
     refresh_token = request.refresh_token  # or create new one for better security
     

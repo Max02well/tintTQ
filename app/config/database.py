@@ -6,14 +6,14 @@ engine = create_async_engine(
     settings.DATABASE_URL,
     echo=False,
     future=True,
-    pool_pre_ping=True,
+    pool_pre_ping=True
 )
 
 AsyncSessionLocal = async_sessionmaker(
     bind=engine,
     expire_on_commit=False,
     autoflush=False,
-    autocommit=False,
+    autocommit=False
 )
 
 class Base(DeclarativeBase):
